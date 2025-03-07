@@ -1,0 +1,36 @@
+:local(.styles) {
+    .section {
+        margin-bottom: 35px;
+        input {
+            width: 400px;
+        }
+    }
+
+    #pools-form-container {
+        border: 1px solid $theme3;
+        width: 50%;
+        margin: 0 auto;
+        padding: 20px;
+        border-radius: $radius;
+        border: 1px solid red;
+
+        
+        h3 {
+            text-align: center;
+            font-weight: bold;
+        }
+
+        .select-pair {
+            border: 1px solid blue;
+            height: 50px;
+            width: 50%;
+            border-radius: $radius;
+            font-size: 25px;
+
+            &:hover {
+                background: red;
+                cursor: pointer;
+            }
+        }
+    }
+}
