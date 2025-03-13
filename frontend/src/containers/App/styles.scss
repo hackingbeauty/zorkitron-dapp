@@ -20,6 +20,15 @@
     margin: 0 auto;
   }
 
+  .box {
+    background: $boxContainer;
+    width: 50%;
+    margin: 0 auto;
+    padding: 20px;
+    border-radius: $radius;
+    box-shadow: inset;
+  }
+
   ul {
     margin: 0;
     padding: 0;

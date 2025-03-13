@@ -26,17 +26,17 @@ export function* depositLiquidity() {
         )
   
         yield put({
-          type: constants.MINT_TOKENS_MSG,
+          type: constants.DEPOSIT_LIQUIDITY_MSG,
           payload: { 
-            transactionProcessingMsg: `Minting ${amount} tokens for account ${toAddress}`
+            transactionProcessingMsg: `Depositing tokens in this amount: ${amount}`
           }
         })
   
         try {
           // Send the transaction
-          const tx= yield call([contract,'mint'], toAddress, parseUnits(amount, 18))
+          const tx= yield call([contract,'depositLiquidity'], toAddress, parseUnits(amount, 18))
           const txReceipt = yield call([tx,'wait'])
-          console.log('---- mint tokens receipt is: ----', txReceipt)
+          console.log('---- deposit liquidity receipt is: ----', txReceipt)
           const transactionStatus = `${amount} tokens credited to ${toAddress}`
           const updatedTotalSupply = formatUnits(yield call([contract,'totalSupply']), 18)
   

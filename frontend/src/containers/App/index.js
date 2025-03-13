@@ -16,7 +16,7 @@ import * as uiActionCreators  from 'core/actions/actions-ui'
 import WalletSelector from 'components/WalletSelector'
 import StandardModal from 'components/Modals/StandardModal'
 import InstallMetaMaskPrompt from 'components/InstallMetaMaskPrompt'
-import HomeView from 'containers/HomeView'
+import WithdrawView from 'containers/WithdrawView'
 import DepositView from 'containers/DepositView'
 import RouteContainer from './components/RouteContainer'
 import AppLayoutRoute from './layouts/AppLayoutRoute'
@@ -74,15 +74,15 @@ class App extends Component {
             <RouteContainer>
               <Switch>
                 <AppLayoutRoute
-                  path="/home"
-                  component={HomeView}
+                  path="/deposit"
+                  component={DepositView}
                   isLoading={showLoader}
                   transactionProcessingMsg={transactionProcessingMsg}
                   chainId={chainId}
                 />
                 <AppLayoutRoute
-                  path="/deposit"
-                  component={DepositView}
+                  path="/withdraw"
+                  component={WithdrawView}
                   isLoading={showLoader}
                   transactionProcessingMsg={transactionProcessingMsg}
                   chainId={chainId}

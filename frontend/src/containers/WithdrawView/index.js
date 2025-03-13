@@ -2,10 +2,10 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import * as transactionActionCreators  from 'core/actions/actions-transaction'
-import HomeViewForm from './components/HomeViewForm'
+import WithdrawViewForm from './components/WithdrawViewForm'
 import { styles } from './styles.scss'
 
-class HomeView extends Component {
+class WithdrawView extends Component {
   render() {
     const { provider, transaction } = this.props
     const { transactionSucceeded } = transaction
@@ -18,7 +18,7 @@ class HomeView extends Component {
     return (
       <div className={styles}>
         <div className="container">
-          <HomeViewForm
+          <WithdrawViewForm
             transactionSucceeded={transactionSucceeded}
           />
         </div>
@@ -42,4 +42,4 @@ function mapDispatchToProps(dispatch) {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(HomeView)
+export default connect(mapStateToProps, mapDispatchToProps)(WithdrawView)

@@ -4,7 +4,7 @@ import { Route } from 'react-router-dom'
 import Header from 'components/Header'
 import ChainId from 'components/ChainId'
 import TransactionLoadingIndicator from 'components/TransactionLoadingIndicator'
-import { AccountBalance, AccountCircle } from '@material-ui/icons'
+import { AccountBalanceWallet,  MonetizationOn } from '@material-ui/icons'
 import { styles } from './styles.scss'
 
 /* eslint-disable react/jsx-no-bind */
@@ -18,14 +18,14 @@ const AppLayoutRoute = ({
   }) => {
   const navLinks = [
     {
-      label: "Home",
-      link: '/home',
-      icon: AccountBalance
-    },
-    {
       label: "Deposit",
       link: '/deposit',
-      icon: AccountBalance
+      icon: MonetizationOn
+    },
+    {
+      label: "Withdraw",
+      link: '/withdraw',
+      icon: AccountBalanceWallet
     }
   ]
 

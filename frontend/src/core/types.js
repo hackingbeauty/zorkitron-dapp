@@ -5,6 +5,7 @@ export default keyMirror({
   CLOSE_MODAL: null,
   CLOSE_RIGHT_DRAWER: null,
   DEPOSIT_LIQUIDITY: null,
+  DEPOSIT_LIQUIDITY_MSG: null,
   DEPOSIT_LIQUIDITY_TX: null,
   INIT_CHAIN_ID: null,
   INIT_PROVIDER: null,
