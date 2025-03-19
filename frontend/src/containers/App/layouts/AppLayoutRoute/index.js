@@ -20,12 +20,12 @@ const AppLayoutRoute = ({
     {
       label: "Deposit",
       link: '/deposit',
-      icon: MonetizationOn
+      icon: AccountBalanceWallet
     },
     {
       label: "Withdraw",
       link: '/withdraw',
-      icon: AccountBalanceWallet
+      icon: MonetizationOn
     }
   ]
 

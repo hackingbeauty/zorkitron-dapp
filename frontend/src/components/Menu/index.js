@@ -5,10 +5,10 @@ import {
     Button,
     Fade
 } from '@material-ui/core'
-
+import iconDownArrowWhiteSvg from 'assets/icons/icon-arrow-down-white.svg'
+import ethToken from 'assets/icons/tokens/eth.png'
 import daiToken from 'assets/icons/tokens/dai.png'
 import usdtToken from 'assets/icons/tokens/usdt.png'
-import ethToken from 'assets/icons/tokens/eth.png'
 import rethToken from 'assets/icons/tokens/reth.png'
 import usdcToken from 'assets/icons/tokens/usdc.png'
 import wstethToken from 'assets/icons/tokens/wsteth-arbitrum.png'
@@ -28,18 +28,22 @@ import cbbtcToken from 'assets/icons/tokens/cbbtc.png'
 import { styles } from './styles.scss'
 
 const ITEM_HEIGHT = 18;
-export default function Menu() {
+export default function Menu(props) {
+    const { children } = props
+
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
     const handleClick = (event) => {
         setAnchorEl(event.currentTarget);
     };
-    const handleClose = () => {
+    const handleClose = (event) => {
         setAnchorEl(null);
+        const selectedToken = event.currentTarget;
+        props.onSelect(selectedToken);
     };
 
     return (
-        <div className={styles}>
+        <div className={`menu ${styles}`}>
             <Button
                 id="fade-button"
                 aria-controls={open ? 'fade-menu' : undefined}
@@ -47,7 +51,12 @@ export default function Menu() {
                 aria-expanded={open ? 'true' : undefined}
                 onClick={handleClick}
             >
-                Dashboard
+                <div>
+                    {children}
+                    <span className="down-arrow-icon">
+                        <img className="arrow-icon" src={iconDownArrowWhiteSvg} alt="Arrow icon" />
+                    </span>
+                </div>
             </Button>
             <MaterialUIMenu
                 id="long-menu"
@@ -58,24 +67,24 @@ export default function Menu() {
                 anchorEl={anchorEl}
                 open={open}
                 onClose={handleClose}
-                // TransitionComponent={Fade}
-                slotProps={{
+                TransitionComponent={Fade}
+                slotprops={{
                     paper: {
                         style: {
-                        maxHeight: ITEM_HEIGHT * 4.5,
-                        width: '20ch',
-                        },
-                    },
+                            maxHeight: ITEM_HEIGHT * 4.5,
+                            width: '20ch',
+                        }
+                    }
                 }}
             >
+                <MenuItem selected={true}>
+                    <img width="20" src={ethToken} />ETH
+                </MenuItem>
                 <MenuItem onClick={handleClose}>
                     <img width="20" src={daiToken} />DAI
                 </MenuItem>
                 <MenuItem onClick={handleClose}>
                     <img width="20" src={usdtToken} />USDT
-                </MenuItem>
-                <MenuItem onClick={handleClose}>
-                    <img width="20" src={ethToken} />ETH
                 </MenuItem>
                 <MenuItem onClick={handleClose}>
                     <img width="20" src={rethToken} />RETH

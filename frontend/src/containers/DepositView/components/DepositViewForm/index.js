@@ -1,29 +1,33 @@
 import React, { useState } from 'react'
-import TextInput from 'components/TextInput'
 import Button from 'components/Button'
-import NumberFormatter from 'components/NumberFormatter'
 import Menu from 'components/Menu'
 import { styles } from './styles.scss'
 
 function DepositViewForm(props) {
+    const { children } = props;
+
     return(
       <div className={styles}>
-        <form>
+        <form onSubmit={props.onSubmit}>
           <div className="section">
             <div id="pools-form-container" className="box">
               <h3>Deposit Liquidity</h3>
               <form id="pools-form">
                 <div className="section">
-                  Select pair
-                  <Menu />
-                  <Menu />
-
+                  <ul className="drop-down-list">
+                    <Menu onSelect={props.onSelect}>
+                      {children}
+                    </Menu>
+                  </ul>
+                  <Menu>
+                    <span>Select token</span>
+                  </Menu>
                 </div>
                 <div className="section">
                 <Button
                   color="primary"
-                  onClick={props.onClick}
                   variant="text"
+                  type="submit"
                 >
                   Deposit
                 </Button>

@@ -4,8 +4,7 @@ import { parseUnits, Contract, formatUnits } from 'ethers'
 import { getContractAddressFromChainId } from 'core/libs/lib-rpc-helpers'
 import ZorkitronABI from "../../../../artifacts/contracts/Zorkitron.sol/Zorkitron.json"
 
-export function* depositLiquidity() {
-    alert('about to deposit liquidity!');
+export function* addLiquidity() {
     const { metaMaskAccount } = yield select(state => state.provider)
     const { toAddress, amount } = action
   
@@ -26,15 +25,16 @@ export function* depositLiquidity() {
         )
   
         yield put({
-          type: constants.DEPOSIT_LIQUIDITY_MSG,
+          type: constants.ADD_LIQUIDITY_MSG,
           payload: { 
             transactionProcessingMsg: `Depositing tokens in this amount: ${amount}`
           }
         })
   
         try {
+          debugger
           // Send the transaction
-          const tx= yield call([contract,'depositLiquidity'], toAddress, parseUnits(amount, 18))
+          const tx= yield call([contract,'addLiquidity'], currency0, parseUnits(amount, 18))
           const txReceipt = yield call([tx,'wait'])
           console.log('---- deposit liquidity receipt is: ----', txReceipt)
           const transactionStatus = `${amount} tokens credited to ${toAddress}`
@@ -68,18 +68,16 @@ export function* depositLiquidity() {
           })
         }
       } else {
-        yield put({ 
-          type: constants.OPEN_RIGHT_DRAWER
-        })
+        yield put({ type: constants.OPEN_RIGHT_DRAWER });
       }
     } else {
       yield put({
         type: constants.DISPLAY_METAMASK_INSTALL_PROMPT,
         payload: { modalKey: 'install-metamask-prompt' }
-      })
+      });
     }
 }
 
 export function* watchTransactionActions() {
-  yield takeEvery(constants.DEPOSIT_LIQUIDITY, depositLiquidity)
+  yield takeEvery(constants.ADD_LIQUIDITY, addLiquidity);
 }

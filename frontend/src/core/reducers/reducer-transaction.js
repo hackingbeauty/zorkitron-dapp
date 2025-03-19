@@ -9,7 +9,7 @@ const initialState = {
 export function transactionReducer(state = initialState, action) {
   switch (action.type) {
 
-    case constants.DEPOSIT_LIQUIDITY_TX:
+    case constants.ADD_LIQUIDITY_TX:
       debugger;
       return Object.assign({}, state, {
         transactionStatus: action.payload.transactionStatus,

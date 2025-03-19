@@ -1,10 +1,26 @@
 import constants from 'core/types'
 
-export function depositLiquidity(toAddress, amount, showLoader) {
+export function addLiquidity(
+  currency0,
+  currency1,
+  currency0Desired,
+  currency1Desired,
+  currency0Min,
+  currency1Min,
+  tickSpacing,
+  liquidityProviderFee,
+  showLoader
+) {
   return {
-    type: constants.DEPOSIT_LIQUIDITY,
-    toAddress,
-    amount,
+    type: constants.ADD_LIQUIDITY,
+    currency0,
+    currency1,
+    currency0Desired,
+    currency1Desired,
+    currency0Min,
+    currency1Min,
+    tickSpacing,
+    liquidityProviderFee,
     showLoader
   }
 }
