@@ -37,8 +37,9 @@ export default function TokenMenu(props) {
     };
     const handleClose = (event) => {
         setAnchorEl(null);
-        const selectedToken = event.currentTarget;
-        props.onClose(selectedToken);
+        const selectedToken = event.target.dataset.token 
+        const selectedTokenElem = event.currentTarget
+        props.onClose(selectedToken, selectedTokenElem)
     };
 
     return (
@@ -53,7 +54,10 @@ export default function TokenMenu(props) {
                 <div>
                     {children}
                     <span className="down-arrow-icon">
-                        <img className="arrow-icon" src={iconDownArrowWhiteSvg} alt="Arrow icon" />
+                        <img className="arrow-icon" 
+                            src={iconDownArrowWhiteSvg}
+                            alt="Arrow icon"
+                        />
                     </span>
                 </div>
             </Button>
@@ -76,61 +80,61 @@ export default function TokenMenu(props) {
                     }
                 }}
             >
-                <MenuItem selected={true}>
+                <MenuItem data-token="eth" selected={true}>
                     <img width="20" src={ethToken} />ETH
                 </MenuItem>
-                <MenuItem onClick={handleClose}>
+                <MenuItem data-token="dai" onClick={handleClose}>
                     <img width="20" src={daiToken} />DAI
                 </MenuItem>
-                <MenuItem onClick={handleClose}>
+                <MenuItem data-token="" onClick={handleClose}>
                     <img width="20" src={usdtToken} />USDT
                 </MenuItem>
-                <MenuItem onClick={handleClose}>
+                <MenuItem data-token="" onClick={handleClose}>
                     <img width="20" src={rethToken} />RETH
                 </MenuItem>
-                <MenuItem onClick={handleClose}>
+                <MenuItem data-token="" onClick={handleClose}>
                     <img width="20" src={usdcToken} />USDC
                 </MenuItem>
-                <MenuItem onClick={handleClose}>
+                <MenuItem data-token="" onClick={handleClose}>
                     <img width="20" src={wstethToken} />WSTETH
                 </MenuItem>
-                <MenuItem onClick={handleClose}>
+                <MenuItem data-token="" onClick={handleClose}>
                     <img width="20" src={usdsToken} />USDS
                 </MenuItem>
-                <MenuItem onClick={handleClose}>
+                <MenuItem data-token="" onClick={handleClose}>
                     <img width="20" src={uniToken} />UNI
                 </MenuItem>
-                <MenuItem onClick={handleClose}>
+                <MenuItem data-token="" onClick={handleClose}>
                     <img width="20" src={udsceToken} />UDSC.E
                 </MenuItem>
-                <MenuItem onClick={handleClose}>
+                <MenuItem data-token="" onClick={handleClose}>
                     <img width="20" src={wbtcToken} />WBTC
                 </MenuItem>
-                <MenuItem onClick={handleClose}>
+                <MenuItem vonClick={handleClose}>
                     <img width="20" src={wethToken} />WETH
                 </MenuItem>
-                <MenuItem onClick={handleClose}>
+                <MenuItem data-token="" onClick={handleClose}>
                     <img width="20" src={lidoToken} />LDO
                 </MenuItem>
-                <MenuItem onClick={handleClose}>
+                <MenuItem data-token="" onClick={handleClose}>
                     <img width="20" src={linkToken} />LINK
                 </MenuItem>
-                <MenuItem onClick={handleClose}>
+                <MenuItem data-token="" onClick={handleClose}>
                     <img width="20" src={mkrToken} />MKR
                 </MenuItem>
-                <MenuItem onClick={handleClose}>
+                <MenuItem data-token="" onClick={handleClose}>
                     <img width="20" src={compToken} />COMP
                 </MenuItem>
-                <MenuItem onClick={handleClose}>
+                <MenuItem data-token="" onClick={handleClose}>
                     <img width="20" src={arbToken} />ARB
                 </MenuItem>
-                <MenuItem onClick={handleClose}>
+                <MenuItem data-token="" onClick={handleClose}>
                     <img width="20" src={weethToken} />WEETH
                 </MenuItem>
-                <MenuItem onClick={handleClose}>
+                <MenuItem data-token="" onClick={handleClose}>
                     <img width="20" src={usdeToken} />USDE
                 </MenuItem>
-                <MenuItem onClick={handleClose}>
+                <MenuItem data-token="" onClick={handleClose}>
                     <img width="20" src={cbbtcToken} />CBBTC
                 </MenuItem>
             </MaterialUIMenu>
