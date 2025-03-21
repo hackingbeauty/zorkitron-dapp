@@ -25,6 +25,15 @@ export function addLiquidity(
   }
 }
 
+export function selectToken(selectedTokens) {
+  const { firstToken, secondToken } = selectedTokens
+  return {
+    type: constants.SELECT_TOKENS,
+    firstToken,
+    secondToken
+  }
+}
+
 export function changeContractOwner(newOwner, showLoader) {
   return {
     type: constants.CHANGE_CONTRACT_OWNER,

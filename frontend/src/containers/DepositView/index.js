@@ -29,28 +29,31 @@ class DepositView extends Component {
   }
   
   onFirstTokenChange= (selectedToken) => {
+    const { actions } = this.props
     const selectedTokenHTML = selectedToken.innerHTML;
     const html = (
-      <div dangerouslySetInnerHTML={{__html: selectedTokenHTML }}>
+      <div dangerouslySetInnerHTML={{ __html: selectedTokenHTML }}>
       </div>
     )
     this.setState({ selectedFirstTokenHTML: html })
+    actions.transaction.selectToken({ firstToken: 'token1' })
   }
 
   onSecondTokenChange= (selectedToken) => {
+    const { actions } = this.props
     const selectedTokenHTML = selectedToken.innerHTML;
     const html = (
-      <div dangerouslySetInnerHTML={{__html: selectedTokenHTML }}>
+      <div dangerouslySetInnerHTML={{ __html: selectedTokenHTML }}>
       </div>
     )
     this.setState({ selectedSecondTokenHTML: html })
+    actions.transaction.selectToken({ secondToken: 'token2' })
   }
 
-  submitForm= () => {
-    alert('submit form');
-    const { actions } = this.props;
-    const { transaction } = actions;
-    transaction.addLiquidity();
+  submitForm= (event) => {
+    const { actions } = this.props
+    const { transaction } = actions
+    transaction.addLiquidity()
   }
 
   render() {

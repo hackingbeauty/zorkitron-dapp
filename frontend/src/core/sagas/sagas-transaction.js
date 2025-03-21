@@ -4,14 +4,15 @@ import { parseUnits, Contract, formatUnits } from 'ethers'
 import { getContractAddressFromChainId } from 'core/libs/lib-rpc-helpers'
 import ZorkitronABI from "../../../../artifacts/contracts/Zorkitron.sol/Zorkitron.json"
 
-export function* addLiquidity() {
+export function* addLiquidity(action) {
     const { metaMaskAccount } = yield select(state => state.provider)
+    const { firstToken, secondToken } = yield select(state => state.transaction)
     const { toAddress, amount } = action
   
     if(window.ethereum) {
-      /* If user is logged into MetaMask, execute tx (transaction).
-          Otherwise, prompt user to install MetaMask
-      */
+      // If user is logged into MetaMask, execute tx (transaction).
+      // Otherwise, prompt user to install MetaMask
+      debugger
       if(metaMaskAccount && metaMaskAccount.length) {
         const { signer, chainId } =  yield select(state => state.provider)
         const contractAddress = getContractAddressFromChainId(chainId)
@@ -23,7 +24,7 @@ export function* addLiquidity() {
           ZorkitronABI.abi,
           signer
         )
-        debugger
+
         yield put({
           type: constants.ADD_LIQUIDITY_MSG,
           payload: { 
@@ -32,7 +33,6 @@ export function* addLiquidity() {
         })
   
         try {
-          debugger
           // Send the transaction
           const tx= yield call([contract,'addLiquidity'], currency0, parseUnits(amount, 18))
           const txReceipt = yield call([tx,'wait'])
@@ -78,6 +78,19 @@ export function* addLiquidity() {
     }
 }
 
+export function* selectTokens(action) {
+  const { firstToken, secondToken } = action
+
+  if(firstToken || secondToken) {
+    yield put({
+      type: constants.SET_TOKENS,
+      payload: { firstToken, secondToken }
+    });
+  }
+}
+
 export function* watchTransactionActions() {
   yield takeEvery(constants.ADD_LIQUIDITY, addLiquidity);
+  yield takeEvery(constants.SELECT_TOKENS, selectTokens);
+
 }
