@@ -28,9 +28,8 @@ import cbbtcToken from 'assets/icons/tokens/cbbtc.png'
 import { styles } from './styles.scss'
 
 const ITEM_HEIGHT = 18;
-export default function Menu(props) {
+export default function TokenMenu(props) {
     const { children } = props
-
     const [anchorEl, setAnchorEl] = React.useState(null);
     const open = Boolean(anchorEl);
     const handleClick = (event) => {
@@ -39,7 +38,7 @@ export default function Menu(props) {
     const handleClose = (event) => {
         setAnchorEl(null);
         const selectedToken = event.currentTarget;
-        props.onSelect(selectedToken);
+        props.onClose(selectedToken);
     };
 
     return (

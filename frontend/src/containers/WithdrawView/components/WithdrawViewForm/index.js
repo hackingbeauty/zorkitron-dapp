@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import Button from 'components/Button'
-import Menu from 'components/Menu'
 import { styles } from './styles.scss'
 
 function WithdrawViewForm(props) {
@@ -12,18 +11,13 @@ function WithdrawViewForm(props) {
               <h3>Withdraw Liquidity</h3>
               <form id="pools-form">
                 <div className="section">
-                  Select pair
-                  <Menu />
-                  <Menu />
-                </div>
-                <div className="section">
-                <Button
-                  color="primary"
-                  onClick={props.onClick}
-                  variant="text"
-                >
-                  Withdraw
-                </Button>
+                  <Button
+                    color="primary"
+                    onClick={props.onClick}
+                    variant="text"
+                  >
+                    Withdraw
+                  </Button>
                 </div>
               </form>
             </div>

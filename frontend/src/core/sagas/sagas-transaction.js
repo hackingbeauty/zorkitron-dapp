@@ -23,7 +23,7 @@ export function* addLiquidity() {
           ZorkitronABI.abi,
           signer
         )
-  
+        debugger
         yield put({
           type: constants.ADD_LIQUIDITY_MSG,
           payload: { 
