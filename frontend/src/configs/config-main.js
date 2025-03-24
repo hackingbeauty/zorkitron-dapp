@@ -1,8 +1,8 @@
 /* Main app configs go here */
 export const LOCALHOST_CONTRACT_ADDRESS = ''
-export const SEPOLIA_CONTRACT_ADDRESS = ''
+export const SEPOLIA_CONTRACT_ADDRESS = '0x46363Da87E97d5B30d62Ce7748fE549f48E8c500'
 export const MAINNET_CONTRACT_ADDRESS = ''
-export const tokens = {
+export const currencies = {
     "DAI":"0x6B175474E89094C44Da98b954EedeAC495271d0F",
     "USDT": "0xdAC17F958D2ee523a2206206994597C13D831ec7",
     "RETH": "0xae78736Cd615f374D3085123A210448E74Fc6393",

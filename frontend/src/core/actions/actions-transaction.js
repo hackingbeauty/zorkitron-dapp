@@ -1,36 +1,37 @@
 import constants from 'core/types'
 
 export function addLiquidity(
-  currency0,
-  currency1,
-  currency0Desired,
-  currency1Desired,
-  currency0Min,
-  currency1Min,
-  tickSpacing,
-  liquidityProviderFee,
+  currency0isETH,
+  tickLower,
+  tickUpper,
+  liquidity,
+  amount0Max,
+  amount1Max,
+  ethToSend,
   showLoader
 ) {
   return {
     type: constants.ADD_LIQUIDITY,
-    currency0,
-    currency1,
-    currency0Desired,
-    currency1Desired,
-    currency0Min,
-    currency1Min,
-    tickSpacing,
-    liquidityProviderFee,
+    currency0isETH,
+    tickLower,
+    tickUpper,
+    liquidity,
+    amount0Max,
+    amount1Max,
+    ethToSend,
     showLoader
   }
 }
 
-export function selectToken(selectedTokens) {
-  const { firstToken, secondToken } = selectedTokens
+export function selectCurrency(selectedCurrency) {
+  const { currency0, currency1 } = selectedCurrency
+
   return {
-    type: constants.SELECT_TOKENS,
-    firstToken,
-    secondToken
+    type: constants.SET_CURRENCY,
+    payload: {
+      currency0,
+      currency1
+    }
   }
 }
 

@@ -6,6 +6,7 @@ import * as uiActionCreators  from 'core/actions/actions-ui'
 import Button from 'components/Button'
 import TokenMenu from 'components/TokenMenu'
 import ethToken from 'assets/icons/tokens/eth.png'
+import { currencies } from 'configs/config-main';
 import { styles } from './styles.scss'
 
 class DepositView extends Component {
@@ -19,7 +20,7 @@ class DepositView extends Component {
     );
     const defaultSecondTokenHTML = (
       <div>
-        <span>Select token</span>
+        <span>Select Currency</span>
       </div>
     );
     this.state = { 
@@ -28,7 +29,7 @@ class DepositView extends Component {
     }
   }
   
-  onFirstTokenChange= (selectedToken, selectedTokenElem) => {
+  onFirstTokenChange= (selectedCurrency, selectedTokenElem) => {
     const { actions } = this.props
     const selectedTokenHTML = selectedTokenElem.innerHTML
     const html = (
@@ -36,10 +37,12 @@ class DepositView extends Component {
       </div>
     )
     this.setState({ selectedFirstTokenHTML: html })
-    actions.transaction.selectToken({ firstToken: selectedToken })
+
+    console.log('----- selectedCurrency ----', selectedCurrency)
+    actions.transaction.selectCurrency({ currency0: selectedCurrency })
   }
 
-  onSecondTokenChange= (selectedToken, selectedTokenElem) => {
+  onSecondTokenChange= (selectedCurrency, selectedTokenElem) => {
     const { actions } = this.props
     const selectedTokenHTML = selectedTokenElem.innerHTML
     const html = (
@@ -47,13 +50,24 @@ class DepositView extends Component {
       </div>
     )
     this.setState({ selectedSecondTokenHTML: html })
-    actions.transaction.selectToken({ secondToken: selectedToken })
+    actions.transaction.selectCurrency({ currency1: selectedCurrency })
   }
 
   submitForm= (event) => {
     const { actions } = this.props
     const { transaction } = actions
-    transaction.addLiquidity()
+
+    transaction.addLiquidity(
+      false,  // currency0isETH
+      "-60",    // tickLower
+      "60",     // tickUpper
+      "10000",  // liquidity
+      "30",     // amount0Max
+      "40",     // amount1Max
+      "0",      // ethToSend
+      true    // showLoader
+    )
+
     event.preventDefault()
   }
 

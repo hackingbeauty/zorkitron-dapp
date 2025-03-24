@@ -4,8 +4,38 @@ import { BrowserProvider, Contract, formatUnits }  from 'ethers'
 import { getContractAddressFromChainId } from 'core/libs/lib-rpc-helpers'
 
 export function* setProvider() {
- 
+  try {
+    const isMetaMaskUnLocked = yield call([window.ethereum._metamask,'isUnlocked'])
+    
+    /* Only set the provider if MetaMask is unlocked */
+    if(isMetaMaskUnLocked) {
+      const web3Provider= new BrowserProvider(window.ethereum)
+      const accounts= yield call(window.ethereum.request, {method: 'eth_accounts', "params": []})     
+      const metaMaskAccount= accounts[0]
+      const chainId= yield call(window.ethereum.request, { method: "eth_chainId" })    
+      const signer= yield call([web3Provider,'getSigner'])
+      const contractAddress = getContractAddressFromChainId(parseInt(chainId, 16))
+      
+      console.log('--- chain ID: ', parseInt(chainId, 16))
+      console.log('--- deployed contract address used is: ', contractAddress)
+      
+      yield put({ type: constants.CLOSE_RIGHT_DRAWER })
+  
+      yield put({
+        type: constants.SET_PROVIDER,
+        payload: { 
+          web3Provider,
+          metaMaskAccount,
+          signer,
+          chainId
+        }
+      })
+    }
+  } catch (error) {
+    console.log(error)
+  }
 }
+
 
 export function* setChainId(action) {
   const { chainId } = action

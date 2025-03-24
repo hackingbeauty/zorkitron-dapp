@@ -65,17 +65,12 @@ function uiReducer(state = initialState, action) {
         }
       })
 
-    case constants.MINT_TOKENS:
-      return Object.assign({}, state, {
-        showLoader: action.showLoader
-      })
-
     case constants.CHANGE_CONTRACT_OWNER:
       return Object.assign({}, state, {
         showLoader: action.showLoader
       })
 
-    case constants.MINT_TOKENS_TX:
+    case constants.ADD_LIQUIDITY_TX:
       return Object.assign({}, state, {
         snackBarOpen: true,
         showLoader: false

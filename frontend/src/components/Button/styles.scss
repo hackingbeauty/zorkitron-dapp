@@ -11,6 +11,10 @@
     color: $primaryFontColor;
     background: #eb58a2;
 
+    &:hover {
+      background: #ff80bf;
+    }
+
     .btn-label {
       text-transform: initial;
       display: block;
