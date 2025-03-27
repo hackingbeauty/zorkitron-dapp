@@ -1,8 +1,8 @@
 import constants from 'core/types'
 
 const initialState = {
-  currency0: null,
-  currency1: null,
+  currency0: "eth",
+  currency1: "dai",
   transactionStatus: null,
   transactionProcessingMsg: '',
   showLoader: false
@@ -18,7 +18,6 @@ export function transactionReducer(state = initialState, action) {
         showLoader: action.payload.showLoader
       })
 
-    
     case constants.SET_CURRENCY:
       return Object.assign({}, state, {
         currency0: action.payload.currency0,

@@ -6,6 +6,7 @@ import * as uiActionCreators  from 'core/actions/actions-ui'
 import Button from 'components/Button'
 import TokenMenu from 'components/TokenMenu'
 import ethToken from 'assets/icons/tokens/eth.png'
+import daiToken from 'assets/icons/tokens/dai.png'
 import { currencies } from 'configs/config-main';
 import { styles } from './styles.scss'
 
@@ -19,13 +20,19 @@ class DepositView extends Component {
       </div>
     );
     const defaultSecondTokenHTML = (
+      // <div>
+      //   <span>Select Currency</span>
+      // </div>
       <div>
-        <span>Select Currency</span>
-      </div>
+        <img width="20" src={daiToken} />
+        <span>DAI</span>
+    </div>
     );
     this.state = { 
       selectedFirstTokenHTML: defaultFirstTokenHTML,
-      selectedSecondTokenHTML: defaultSecondTokenHTML
+      selectedSecondTokenHTML: defaultSecondTokenHTML,
+      currency0: null,
+      currency1: null
     }
   }
   
@@ -36,10 +43,14 @@ class DepositView extends Component {
       <div dangerouslySetInnerHTML={{ __html: selectedTokenHTML }}>
       </div>
     )
-    this.setState({ selectedFirstTokenHTML: html })
-
-    console.log('----- selectedCurrency ----', selectedCurrency)
-    actions.transaction.selectCurrency({ currency0: selectedCurrency })
+    this.setState({ 
+      selectedFirstTokenHTML: html,
+      currency0: selectedCurrency
+    })
+    actions.transaction.selectCurrency({ 
+      currency0: selectedCurrency, 
+      currency1: this.state.currency1
+    })
   }
 
   onSecondTokenChange= (selectedCurrency, selectedTokenElem) => {
@@ -49,8 +60,14 @@ class DepositView extends Component {
       <div dangerouslySetInnerHTML={{ __html: selectedTokenHTML }}>
       </div>
     )
-    this.setState({ selectedSecondTokenHTML: html })
-    actions.transaction.selectCurrency({ currency1: selectedCurrency })
+    this.setState({ 
+      selectedSecondTokenHTML: html,
+      currency1: selectedCurrency 
+    })
+    actions.transaction.selectCurrency({ 
+      currency0: this.state.currency0,
+      currency1: selectedCurrency
+    })
   }
 
   submitForm= (event) => {
@@ -58,14 +75,15 @@ class DepositView extends Component {
     const { transaction } = actions
 
     transaction.addLiquidity(
-      false,  // currency0isETH
+      true,    // currency0isETH
       "-60",    // tickLower
       "60",     // tickUpper
       "10000",  // liquidity
       "30",     // amount0Max
       "40",     // amount1Max
       "0",      // ethToSend
-      true    // showLoader
+      "",       // hookData
+      true      // showLoader
     )
 
     event.preventDefault()

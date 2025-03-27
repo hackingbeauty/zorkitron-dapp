@@ -1,9 +1,10 @@
 import constants from 'core/types'
 import { takeEvery, select, put, call } from 'redux-saga/effects'
-import { parseUnits, Contract, formatUnits } from 'ethers'
+import { parseUnits, Contract, toUtf8Bytes } from 'ethers'
 import { getContractAddressFromChainId } from 'core/libs/lib-rpc-helpers'
 import ZorkitronABI from "../../../../artifacts/contracts/Zorkitron.sol/Zorkitron.json"
 import { currencies } from "configs/config-main"
+
 export function* addLiquidity(action) {
     const { metaMaskAccount } = yield select(state => state.provider)
     const { currency0, currency1 } = yield select(state => state.transaction)
@@ -15,6 +16,7 @@ export function* addLiquidity(action) {
       amount0Max,
       amount1Max,
       ethToSend,
+      hookData,
       showLoader
     } = action
 
@@ -27,6 +29,9 @@ export function* addLiquidity(action) {
           const contractAddress = getContractAddressFromChainId(chainId)
           // Connected to a Signer; can make state changing,
           // transactions which will cost the account ether.
+
+          console.log('-- Zorkitron ABI --', ZorkitronABI);
+
           const contract = new Contract(
             contractAddress,
             ZorkitronABI.abi,
@@ -39,22 +44,23 @@ export function* addLiquidity(action) {
               transactionProcessingMsg: `Adding liquidity...`
             }
           })
+
+          console.log('----- currencies[currency0.toUpperCase()] ----- ', currencies[currency0.toUpperCase()])
+          console.log('----- currencies[currency1.toUpperCase()] ----- ', currencies[currency1.toUpperCase()])
+
+          const currency0Address = currencies[currency0.toUpperCase()];
+          const currency1Address = currencies[currency1.toUpperCase()];
     
           try {
-            console.log('----- currencies[currency0.toUpperCase()] ----- ', currencies[currency0.toUpperCase()])
-            console.log('----- currencies[currency1.toUpperCase()] ----- ', currencies[currency1.toUpperCase()])
-
             const tx= yield call([contract,'addLiquidity'], 
-              currency0isETH,
-              currencies[currency0.toUpperCase()],
-              currencies[currency1.toUpperCase()],
-              parseUnits(tickLower, 18),
-              parseUnits(tickUpper, 18),
+              currency0Address,
+              currency1Address,
+              tickLower,
+              tickUpper,
               parseUnits(liquidity, 18),
               parseUnits(amount0Max, 18),
               parseUnits(amount1Max, 18),
-              parseUnits(ethToSend, 18),
-              showLoader
+              parseUnits(ethToSend, 18)
             )
             const txReceipt = yield call([tx,'wait'])
             console.log('---- deposit liquidity receipt is: ----', txReceipt)
@@ -68,8 +74,9 @@ export function* addLiquidity(action) {
                 txReceipt
               }
             })
-    
           } catch(e) {
+            console.log('==== e ====,', e)
+            debugger
             const errorToStr = JSON.stringify(e)
             const errorObj = JSON.parse(errorToStr)
             const { shortMessage } = errorObj

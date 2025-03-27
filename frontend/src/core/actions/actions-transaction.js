@@ -8,6 +8,7 @@ export function addLiquidity(
   amount0Max,
   amount1Max,
   ethToSend,
+  hookData,
   showLoader
 ) {
   return {
@@ -19,6 +20,7 @@ export function addLiquidity(
     amount0Max,
     amount1Max,
     ethToSend,
+    hookData,
     showLoader
   }
 }
