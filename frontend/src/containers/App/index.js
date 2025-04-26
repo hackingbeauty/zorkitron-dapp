@@ -3,7 +3,8 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
 import { MuiThemeProvider } from '@material-ui/core/styles'
-import { Drawer, Snackbar } from '@material-ui/core'
+import { Snackbar } from '@material-ui/core'
+import Drawer from 'components/Drawer'
 import { ThemeProvider } from 'styled-components'
 import {
   BrowserRouter,
@@ -92,6 +93,7 @@ class App extends Component {
             </RouteContainer>
             <Drawer
               anchor="right"
+              classes="yada"
               open={ui.rightDrawerIsOpen}
               onClose={actions.ui.closeRightDrawer}
             >

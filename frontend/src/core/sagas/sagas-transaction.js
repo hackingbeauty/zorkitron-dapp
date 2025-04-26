@@ -26,6 +26,7 @@ export function* addLiquidity(action) {
       if(metaMaskAccount){ 
         if(metaMaskAccount.length) {
           const { signer, chainId } =  yield select(state => state.provider)
+          console.log('---- signer ----', signer)
           const contractAddress = getContractAddressFromChainId(chainId)
           // Connected to a Signer; can make state changing,
           // transactions which will cost the account ether.
@@ -40,9 +41,7 @@ export function* addLiquidity(action) {
 
           yield put({
             type: constants.ADD_LIQUIDITY_MSG,
-            payload: { 
-              transactionProcessingMsg: `Adding liquidity...`
-            }
+            payload: { transactionProcessingMsg: `Adding liquidity...` }
           })
 
           console.log('----- currencies[currency0.toUpperCase()] ----- ', currencies[currency0.toUpperCase()])
@@ -62,10 +61,11 @@ export function* addLiquidity(action) {
               parseUnits(amount1Max, 18),
               parseUnits(ethToSend, 18)
             )
+
             const txReceipt = yield call([tx,'wait'])
+            const transactionStatus = `Liquidity Tokens credited to ${signer.address}`
             console.log('---- deposit liquidity receipt is: ----', txReceipt)
-            const transactionStatus = `Liquidity Tokens credited to ${toAddress}`
-    
+
             yield put({
               type: constants.ADD_LIQUIDITY_TX,
               payload: { 
@@ -76,7 +76,6 @@ export function* addLiquidity(action) {
             })
           } catch(e) {
             console.log('==== e ====,', e)
-            debugger
             const errorToStr = JSON.stringify(e)
             const errorObj = JSON.parse(errorToStr)
             const { shortMessage } = errorObj

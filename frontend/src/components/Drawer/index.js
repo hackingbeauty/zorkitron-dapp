@@ -10,20 +10,33 @@ const Drawer = (props) => {
     window.scrollTo(0, 0)
   }, [])
 
+  console.log('---- classes: ----', classes);
+
   return (
-    <div className={styles}>
-      <MuiDrawer
-        classes={{
-          paper: 'drawer-paper',
-          ...classes
-        }}
-        {...other}
-      >
+    <MuiDrawer
+      sx={{
+        '& .MuiDrawer-root': {
+            position: 'absolute',
+            background: 'red'
+        },
+        '& .MuiPaper-root': {
+            position: 'absolute',
+            background: 'red'
+
+        },
+      }}
+      // classes={{
+      //   paper: 'drawer-paper'
+      // }}
+      {...styles}
+      {...other}
+    >
+      <div className={styles}>
         <div className="drawer-container">
           {children}
         </div>
-      </MuiDrawer>
-    </div>
+      </div>
+    </MuiDrawer>
   )
 }
 

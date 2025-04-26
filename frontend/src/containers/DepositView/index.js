@@ -1,13 +1,12 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { bindActionCreators } from 'redux'
-import * as transactionActionCreators  from 'core/actions/actions-transaction'
+import * as transactionActionCreators from 'core/actions/actions-transaction'
 import * as uiActionCreators  from 'core/actions/actions-ui'
 import Button from 'components/Button'
 import TokenMenu from 'components/TokenMenu'
 import ethToken from 'assets/icons/tokens/eth.png'
 import daiToken from 'assets/icons/tokens/dai.png'
-import { currencies } from 'configs/config-main';
 import { styles } from './styles.scss'
 
 class DepositView extends Component {
