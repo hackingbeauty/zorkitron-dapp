@@ -42,7 +42,8 @@ module.exports = {
     new MiniCssExtractPlugin({ filename: '[name].css' }),
     new CopyWebpackPlugin([
       { from: 'src/manifest.json' },
-      { from: 'src/assets/robots.txt' }
+      { from: 'src/assets/robots.txt' },
+      { from: '_redirects' }
     ]),
     new HtmlWebpackPlugin({
       template: 'src/index.html',
